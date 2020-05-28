@@ -3,7 +3,7 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const compression = require('compression');
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 
@@ -17,32 +17,15 @@ app.use(express.static('public'));
 
 require('dotenv').config();
 
-
 mongoose
-	.connect(process.env.MONGODB_URI, { 
-    useUnifiedTopology: true, 
-    useNewUrlParser: true 
+	.connect(process.env.MONGODB_URI || "mongodb://localhost/budget", { 
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true
+  
   })
 	.then(() => console.log('M O N G O D B   C O N N E C T E D . . .'))
 	.catch((err) => console.log('[ E R R O R ]: ' + err));
-
-// server-sent event stream
-app.get('/events', function(req, res) {
-	res.setHeader('Content-Type', 'text/event-stream');
-	res.setHeader('Cache-Control', 'no-cache');
-
-	// send a ping approx every 2 seconds
-	var timer = setInterval(function() {
-		res.write('data: ping\n\n');
-
-		// !!! this is the important part
-		res.flush();
-	}, 2000);
-
-	res.on('close', function() {
-		clearInterval(timer);
-	});
-});
 
 // routes
 app.use(require('./routes/api.js'));

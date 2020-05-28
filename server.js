@@ -19,10 +19,10 @@ require('dotenv').config();
 
 
 mongoose
-	.connect(
-		`mongodb+srv://${process.env.DB_NAME}:${process.env.DB_PASS}@cluster0-3pcpg.mongodb.net/test?retryWrites=true&w=majority`,
-		{ useUnifiedTopology: true, useNewUrlParser: true }
-	)
+	.connect(process.env.MONGODB_URI, { 
+    useUnifiedTopology: true, 
+    useNewUrlParser: true 
+  })
 	.then(() => console.log('M O N G O D B   C O N N E C T E D . . .'))
 	.catch((err) => console.log('[ E R R O R ]: ' + err));
 

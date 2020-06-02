@@ -17,15 +17,22 @@ app.use(express.static('public'));
 
 require('dotenv').config();
 
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('client/build'));
+}
+
 mongoose
-	.connect(process.env.MONGODB_URI || "mongodb://localhost/budget", { 
-    useNewUrlParser: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true
-  
-  })
-	.then(() => console.log('M O N G O D B   C O N N E C T E D . . .'))
-	.catch((err) => console.log('[ E R R O R ]: ' + err));
+	.connect(
+		process.env.MONGODB_URI ||
+			`mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ds247688.mlab.com:47688/heroku_6lxgl9r2`,
+		{
+            useUnifiedTopology: true,
+			useNewUrlParser: true,
+			useFindAndModify: false
+		}
+	)
+	.then(() => console.log('MongoDB Connected!'))
+	.catch((err) => console.log('[ Error ]: ' + err));
 
 // routes
 app.use(require('./routes/api.js'));

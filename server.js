@@ -19,8 +19,7 @@ app.use(express.static('public'));
 
 mongoose
 	.connect(
-		`mongodb://coffee:coffee123@ds247688.mlab.com:47688/heroku_6lxgl9r2` ||
-			'mongodb://localhost/transactions',
+		`mongodb://coffee:coffee123@ds247688.mlab.com:47688/heroku_6lxgl9r2` || 'mongodb://localhost/transactions',
 		{ useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true }
 	)
 	.then(() => console.log('MongoDB Connected!'))

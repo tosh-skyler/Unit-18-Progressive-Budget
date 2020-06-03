@@ -25,8 +25,8 @@ if (process.env.NODE_ENV === 'production') {
 
 mongoose
 	.connect(
-		process.env.MONGODB_URI ||
-			`mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ds247688.mlab.com:47688/heroku_6lxgl9r2`,
+		process.env.MONGODB ||
+			'mongodb://localhost/transactions',
 		{
 			useUnifiedTopology: true,
 			useNewUrlParser: true,

@@ -3,8 +3,9 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const compression = require('compression');
 
+require('dotenv').config();
+
 const PORT = process.env.PORT || 3000;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/transactions'
 
 const app = express();
 
@@ -17,11 +18,11 @@ app.use(express.json());
 app.use(express.static('public'));
 
 mongoose
-	.connect(MONGODB_URI, {
-		useUnifiedTopology: true,
-		useNewUrlParser: true,
-		useFindAndModify: false
-	})
+	.connect(
+		`mongodb://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@ds247688.mlab.com:47688/heroku_6lxgl9r2` ||
+			'mongodb://localhost/transactions',
+		{ useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true }
+	)
 	.then(() => console.log('MongoDB Connected!'))
 	.catch((err) => console.log('[ Error ]: ' + err));
 

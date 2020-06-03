@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="theme-color" content="#317EFB">
   <link rel="shortcut icon" href="icons/icon-192x192.png" type="image/x-icon">
+  <meta name="description" content="PWA Budget App">
 
   <link
     rel="stylesheet"
@@ -23,8 +24,12 @@
     </div>
 
     <div class="form">
-      <input type="text" id="t-name" placeholder="Name of transaction" />
-      <input type="number" min="0" id="t-amount" placeholder="Transaction amount" />
+        <input type="text" id="t-name" placeholder="Name of transaction" />
+        <label for="t-name">Transaction Name</label>
+        <br>
+        <input type="number" min="0" id="t-amount" placeholder="Transaction amount" />
+        <label for="t-amount">Transaction Amount</label>
+        <br>
       <button id="add-btn"><i class="fa fa-plus buttons"></i> Add Funds</button>
       <button id="sub-btn"><i class="fa fa-minus"></i> Subtract Funds</button>
       <p class="error"></p>
